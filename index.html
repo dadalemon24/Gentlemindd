@@ -8,25 +8,25 @@
     <style>
         :root {
             /* Cute Pastel Palette */
-            --bg-gradient: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%); /* Sunset Pastel */
-            --bg-body: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%); /* Pinky Cloud */
+            --bg-gradient: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+            --bg-body: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
             
             --card-bg: rgba(255, 255, 255, 0.95);
             --text-main: #6c5ce7;
             --text-light: #a29bfe;
             
             /* Main Colors */
-            --primary: #FF9A9E; /* Sweet Pink */
+            --primary: #FF9A9E; 
             --primary-hover: #ff7675;
-            --secondary: #74b9ff; /* Soft Blue */
+            --secondary: #74b9ff; 
             
-            /* Mood Colors (Pastel Candy) */
-            --m-amazing: #ffeaa7;  /* Creamy Yellow */
-            --m-happy: #55efc4;    /* Mint */
-            --m-normal: #fab1a0;   /* Peach */
-            --m-exhausted: #dfe6e9; /* Cloud Grey */
-            --m-sad: #74b9ff;      /* Baby Blue */
-            --m-angry: #ff7675;    /* Soft Red */
+            /* Mood Colors */
+            --m-amazing: #ffeaa7;  
+            --m-happy: #55efc4;    
+            --m-normal: #fab1a0;   
+            --m-exhausted: #dfe6e9; 
+            --m-sad: #74b9ff;      
+            --m-angry: #ff7675;    
         }
 
         body {
@@ -39,16 +39,17 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* Fixes potential horizontal scroll on mobile body */
-            overflow-x: hidden; 
+            overflow-x: hidden;
+            /* Added padding so the card doesn't touch edges on small screens */
+            padding: 20px 0; 
+            box-sizing: border-box;
         }
 
-        /* Desktop Container - Cute Style */
+        /* Desktop Container */
         .app-container {
-            width: 850px; /* Desktop width */
-            height: 650px; /* Desktop height */
-            max-width: 95vw; /* Max width for mobile */
-            min-height: 100vh; /* Allow it to use full height on mobile */
+            width: 850px; 
+            height: 650px; 
+            max-width: 95vw; 
             background: var(--card-bg);
             border-radius: 50px; 
             box-shadow: 0 20px 50px rgba(255, 107, 107, 0.15);
@@ -57,6 +58,7 @@
             overflow: hidden;
             position: relative;
             border: 4px solid #fff;
+            /* Only enforce min-height on desktop if needed, usually fixed height controls this */
         }
 
         /* Header */
@@ -67,6 +69,7 @@
             align-items: center;
             background: rgba(255,255,255,0.5);
             backdrop-filter: blur(5px);
+            flex-shrink: 0; /* Prevents header from shrinking */
         }
 
         .brand {
@@ -99,7 +102,7 @@
             gap: 5px;
             font-size: 0.9rem;
             color: #b2bec3;
-            white-space: nowrap; /* Prevent button text from wrapping */
+            white-space: nowrap; 
         }
         .icon-btn:hover { transform: translateY(-3px); border-color: var(--primary); color: var(--primary); }
         .icon-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4); }
@@ -113,6 +116,8 @@
             align-items: center;
             justify-content: center;
             animation: floatUp 0.6s ease;
+            /* Allow screen content to determine height on mobile */
+            overflow-y: auto; 
         }
         .screen.active { display: flex; }
 
@@ -124,10 +129,9 @@
         h1 { font-family: 'Kodchasan'; font-weight: 600; margin-bottom: 5px; color: #2d3436; font-size: 2.2rem; }
         p { color: #888; margin-bottom: 30px; font-size: 1.1rem; }
 
-        /* Mood Grid - Cute Cards */
         .mood-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Default 3 columns */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 20px;
             width: 100%;
             max-width: 650px;
@@ -150,9 +154,9 @@
         }
         .mood-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
 
-        /* Setup Section */
+        /* Setup Section - FIXED STAR ICON HERE */
         .wisdom-box {
-            background: #FFF0F5; /* Lavender Blush */
+            background: #FFF0F5; 
             border: 2px dashed var(--primary);
             padding: 30px;
             border-radius: 30px;
@@ -163,8 +167,21 @@
             line-height: 1.6;
             color: #636e72;
             position: relative;
+            /* Ensure text wraps nicely */
+            word-wrap: break-word; 
         }
-        .wisdom-box::before { content: '✨'; position: absolute; top: -15px; left: 20px; font-size: 2rem; background: var(--card-bg); padding: 0 10px; }
+        
+        /* FIX: Changed background to transparent so it doesn't hide text */
+        .wisdom-box::before { 
+            content: '✨'; 
+            position: absolute; 
+            top: -20px; 
+            left: 20px; 
+            font-size: 2rem; 
+            background: transparent; /* Fixes obscuring issue */
+            padding: 0 10px; 
+            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff; /* Adds white outline to pop against border */
+        }
 
         .time-selector {
             display: flex;
@@ -183,7 +200,7 @@
             transition: 0.3s;
             color: #888;
             font-weight: 600;
-            white-space: nowrap; /* Prevent button text from wrapping */
+            white-space: nowrap; 
         }
         .time-btn:hover { border-color: var(--secondary); color: var(--secondary); background: #f0f8ff; transform: scale(1.05); }
 
@@ -201,7 +218,6 @@
         }
         input[type="number"]:focus { border-color: var(--primary); }
 
-        /* Meditation Circle - Beautiful Gradient */
         .circle-container {
             position: relative;
             width: 300px;
@@ -215,7 +231,6 @@
         .circle {
             width: 220px;
             height: 220px;
-            /* Gradient for breathing circle */
             background: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
             border-radius: 50%;
             opacity: 0.8;
@@ -252,7 +267,6 @@
             font-family: 'Kodchasan';
         }
 
-        /* Cute Buttons */
         .btn-primary {
             background: var(--primary); 
             color: white; border: none; padding: 15px 50px;
@@ -270,7 +284,6 @@
         }
         .btn-text:hover { color: var(--primary); text-decoration: underline; }
 
-        /* Stats List */
         .history-container {
             width: 100%; max-width: 600px; max-height: 280px; overflow-y: auto;
             text-align: left; background: #fff; padding: 20px; border-radius: 25px;
@@ -281,27 +294,27 @@
             padding: 12px 0; font-size: 1rem; align-items: center;
         }
         
-        /* Custom Scrollbar for cute look */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: #ffd1dc; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #ffb7b2; }
 
-        /* --- MOBILE RESPONSIVENESS (Media Query) --- */
+        /* --- MOBILE RESPONSIVENESS FIX --- */
         @media (max-width: 890px) {
-            /* General App Container Adjustments */
             .app-container {
-                width: 100%; /* Use full width */
-                height: auto; /* Allow height to adjust dynamically */
-                border-radius: 0; /* Remove extreme corner radius on full mobile screen */
-                box-shadow: none; /* Remove shadow when full screen */
-                border: none;
+                width: 90%; 
+                /* FIX: Reset desktop height and use fit-content */
+                height: fit-content; 
+                min-height: auto; 
+                border-radius: 30px; /* Kept rounded corners for card look */
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border: 4px solid #fff;
+                margin: 20px 0; /* Add margin so it doesn't touch top/bottom */
             }
 
-            /* Header Adjustments */
             header {
                 padding: 15px 20px;
-                flex-direction: column; /* Stack header items */
+                flex-direction: column;
                 gap: 10px;
                 text-align: center;
             }
@@ -314,20 +327,20 @@
                 font-size: 0.85rem;
             }
 
-            /* Screen Padding */
             .screen {
-                padding: 20px;
+                padding: 30px 20px; /* Reduced padding slightly */
             }
 
             h1 {
                 font-size: 1.8rem;
+                text-align: center;
             }
             p {
                 font-size: 1rem;
                 margin-bottom: 20px;
+                text-align: center;
             }
 
-            /* MOOD GRID - Change to 2 columns on mobile */
             .mood-grid {
                 grid-template-columns: repeat(2, 1fr); 
                 gap: 15px;
@@ -339,15 +352,16 @@
                 border-radius: 25px;
             }
             .mood-card span {
-                font-size: 1.5rem !important; /* Adjust icon size */
+                font-size: 1.5rem !important; 
             }
 
-            /* Setup Screen Adjustments */
+            /* FIX: Wisdom box adjustments for mobile */
             .wisdom-box {
-                padding: 20px;
+                padding: 25px;
                 font-size: 1rem;
                 margin-bottom: 20px;
                 border-radius: 20px;
+                margin-top: 10px; /* Ensure space for the star */
             }
 
             .time-selector {
@@ -363,7 +377,6 @@
                 justify-content: center;
             }
             
-            /* Timer Screen Adjustments */
             .circle-container {
                 width: 250px;
                 height: 250px;
@@ -379,7 +392,6 @@
                 font-size: 1.4rem;
             }
 
-            /* Stats Adjustments */
             .history-container {
                 padding: 15px;
             }
@@ -613,7 +625,7 @@
         window.speechSynthesis.cancel();
         
         saveStats(initialSeconds - totalSeconds);
-        showHistory(true); // Call showHistory to display the summary
+        showHistory(true); 
         goScreen('screen-summary');
     }
 
@@ -638,7 +650,7 @@
         
         if(stats.length === 0) {
             container.innerHTML = '<p style="text-align:center; color:#ccc;">ยังไม่มีบันทึก เริ่มต้นสะสมความสุขกันเถอะ</p>';
-            if(!isSummaryScreen) { // If user clicked "📊 สถิติ" button, move to summary screen
+            if(!isSummaryScreen) { 
                 goScreen('screen-summary');
                 document.querySelector('#screen-summary h1').innerText = "สถิติของคุณ";
             }
@@ -653,7 +665,6 @@
             const secs = s.duration % 60;
             const timeStr = mins > 0 ? `${mins} นาที ${secs} วินาที` : `${secs} วินาที`;
 
-            // Emoji mapping
             let moodIcon = "😐";
             if(s.mood === 'Amazing') moodIcon = "😁";
             else if(s.mood === 'Happy') moodIcon = "😊";
@@ -672,7 +683,7 @@
             container.appendChild(div);
         });
 
-        if(!isSummaryScreen) { // If user clicked "📊 สถิติ" button, move to summary screen
+        if(!isSummaryScreen) { 
             goScreen('screen-summary');
             document.querySelector('#screen-summary h1').innerText = "สถิติของคุณ";
         }
